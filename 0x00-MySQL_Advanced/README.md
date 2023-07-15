@@ -270,3 +270,50 @@ id      email   name    valid_email
 root@2c462bd13a86:~/alx-backend-storage/0x00-MySQL_Advanced# 
 ```
 </Details>
+
+### Task 6. Add bonus
+<Details>
+Write a SQL script that creates a stored procedure AddBonus that adds a new correction for a student.
+
+Requirements:
+
+Procedure AddBonus is taking 3 inputs (in this order):
+user_id, a users.id value (you can assume user_id is linked to an existing users)
+project_name, a new or already exists projects - if no projects.name found in the table, you should create it
+score, the score value for the correction
+Context: Write code in SQL is a nice level up!
+
+```
+root@2c462bd13a86:~/alx-backend-storage/0x00-MySQL_Advanced# cat 6-bonus.sql | mysql -uroot -p holberton 
+Enter password: 
+root@2c462bd13a86:~/alx-backend-storage/0x00-MySQL_Advanced# cat 6-main.sql | mysql -uroot -p holberton 
+Enter password: 
+id      name
+1       C is fun
+2       Python is cool
+user_id project_id      score
+1       1       80
+1       2       96
+2       1       91
+2       2       73
+--
+--
+--
+--
+id      name
+1       C is fun
+2       Python is cool
+3       Bonus project
+4       New bonus
+user_id project_id      score
+1       1       80
+1       2       96
+2       1       91
+2       2       73
+2       2       100
+2       3       100
+1       3       10
+2       4       90
+root@2c462bd13a86:~/alx-backend-storage/0x00-MySQL_Advanced# 
+```
+</Details>
