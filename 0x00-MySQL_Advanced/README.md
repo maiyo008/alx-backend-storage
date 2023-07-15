@@ -199,3 +199,37 @@ Hanoi Rocks     0
 root@2c462bd13a86:~/alx-backend-storage/0x00-MySQL_Advanced# 
 ```
 </Details>
+
+### Task 4. Buy buy buy
+<Details>
+Write a SQL script that creates a trigger that decreases the quantity of an item after adding a new order.
+
+Quantity in the table items can be negative.
+
+Context: Updating multiple tables for one action from your application can generate issue: network disconnection, crash, etc… to keep your data in a good shape, let MySQL do it for you!
+
+```
+root@2c462bd13a86:~/alx-backend-storage/0x00-MySQL_Advanced# cat 4-init.sql | mysql -uroot -p holberton 
+Enter password: 
+root@2c462bd13a86:~/alx-backend-storage/0x00-MySQL_Advanced# cat 4-store.sql | mysql -uroot -p holberton 
+Enter password: 
+root@2c462bd13a86:~/alx-backend-storage/0x00-MySQL_Advanced# cat 4-main.sql | mysql -uroot -p holberton 
+Enter password: 
+name    quantity
+apple   10
+pineapple       10
+pear    10
+--
+--
+name    quantity
+apple   6
+pineapple       10
+pear    8
+item_name       number
+apple   1
+apple   3
+pear    2
+root@2c462bd13a86:~/alx-backend-storage/0x00-MySQL_Advanced# 
+
+```
+</Details>
