@@ -233,3 +233,40 @@ root@2c462bd13a86:~/alx-backend-storage/0x00-MySQL_Advanced#
 
 ```
 </Details>
+
+### Task 5. Email validation to sent
+<Details>
+Write a SQL script that creates a trigger that resets the attribute valid_email only when the email has been changed.
+
+Context: Nothing related to MySQL, but perfect for user email validation - distribute the logic to the database itself!
+
+```
+root@2c462bd13a86:~/alx-backend-storage/0x00-MySQL_Advanced# cat 5-init.sql | mysql -uroot -p holberton 
+Enter password: 
+root@2c462bd13a86:~/alx-backend-storage/0x00-MySQL_Advanced# cat 5-valid_email.sql | mysql -uroot -p holberton 
+Enter password: 
+ERROR 1064 (42000) at line 11: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DELIMETER' at line 1
+root@2c462bd13a86:~/alx-backend-storage/0x00-MySQL_Advanced# cat 5-valid_email.sql | mysql -uroot -p holberton 
+Enter password: 
+ERROR 1359 (HY000) at line 4: Trigger already exists
+root@2c462bd13a86:~/alx-backend-storage/0x00-MySQL_Advanced# cat 5-main.sql | mysql -uroot -p holberton 
+Enter password: 
+id      email   name    valid_email
+1       bob@dylan.com   Bob     0
+2       sylvie@dylan.com        Sylvie  1
+3       jeanne@dylan.com        Jeanne  1
+--
+--
+id      email   name    valid_email
+1       bob@dylan.com   Bob     1
+2       sylvie+new@dylan.com    Sylvie  0
+3       jeanne@dylan.com        Jannis  1
+--
+--
+id      email   name    valid_email
+1       bob@dylan.com   Bob     1
+2       sylvie+new@dylan.com    Sylvie  0
+3       jeanne@dylan.com        Jannis  1
+root@2c462bd13a86:~/alx-backend-storage/0x00-MySQL_Advanced# 
+```
+</Details>
