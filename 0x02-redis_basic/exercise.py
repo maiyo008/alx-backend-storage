@@ -44,6 +44,23 @@ def call_history(method: Callable) -> Callable:
     return wrapper
 
 
+def replay(cache, func: Callable):
+    """
+     display the history of calls of a particular function.
+    """
+    func_name = func.__qualname__
+    input_key = f"{func_name}:inputs"
+    output_key = f"{func_name}:outputs"
+    inputs = cache._redis.lrange(input_key, 0, -1)
+    outputs = cache._redis.lrange(output_key, 0, -1)
+    num_calls = len(inputs)
+    print(f"{func_name} was called {num_calls} times:")
+    for input_data, output_data in zip(inputs, outputs):
+        input_data_str = input_data.decode("utf-8")
+        output_data_str = output_data.decode("utf-8")
+        print(f"{func_name}{input_data_str} -> {output_data_str}")
+
+
 class Cache:
     """
     Write strings to redis
