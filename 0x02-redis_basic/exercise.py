@@ -4,7 +4,23 @@ exercise.py
 """
 import redis
 import uuid
+from functools import wraps
 from typing import Union, Callable
+
+
+def count_calls(method: Callable) -> Callable:
+    """
+    count_calls decorator
+    """
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        """
+         Increments the count for that key every time the method is called
+         """
+        key = method.__qualname__
+        self._redis.incr(key)
+        return method(self, *args, **kwargs)
+    return wrapper
 
 
 class Cache:
@@ -19,6 +35,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """
          Generate a random key, store the input data
