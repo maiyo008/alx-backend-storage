@@ -23,6 +23,27 @@ def count_calls(method: Callable) -> Callable:
     return wrapper
 
 
+def call_history(method: Callable) -> Callable:
+    """
+    Storing lists
+    """
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        """
+        name and append ":inputs" and ":outputs"
+        to create input and output list keys, respectively.
+        """
+        input_key = f"{method.__qualname__}:inputs"
+        output_key = f"{method.__qualname__}:outputs"
+        input_data = str(args)
+        self._redis.rpush(input_key, input_data)
+        output = method(self, *args, **kwargs)
+        output_data = str(output)
+        self._redis.rpush(output_key, output_data)
+        return output
+    return wrapper
+
+
 class Cache:
     """
     Write strings to redis
@@ -36,6 +57,7 @@ class Cache:
         self._redis.flushdb()
 
     @count_calls
+    @call_history
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """
          Generate a random key, store the input data

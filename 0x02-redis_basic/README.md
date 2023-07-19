@@ -98,3 +98,34 @@ root@2c462bd13a86:~/alx-backend-storage/0x02-redis_basic#
 root@2c462bd13a86:~/alx-backend-storage/0x02-redis_basic# 
 ```
 </Details>
+
+### Task 3. Storing lists
+<Details>
+Familiarize yourself with redis commands RPUSH, LPUSH, LRANGE, etc.
+
+In this task, we will define a call_history decorator to store the history of inputs and outputs for a particular function.
+
+Everytime the original function will be called, we will add its input parameters to one list in redis, and store its output into another list.
+
+In call_history, use the decorated function’s qualified name and append ":inputs" and ":outputs" to create input and output list keys, respectively.
+
+call_history has a single parameter named method that is a Callable and returns a Callable.
+
+In the new function that the decorator will return, use rpush to append the input arguments. Remember that Redis can only store strings, bytes and numbers. Therefore, we can simply use str(args) to normalize. We can ignore potential kwargs for now.
+
+Execute the wrapped function to retrieve the output. Store the output using rpush in the "...:outputs" list, then return the output.
+
+Decorate Cache.store with call_history.
+
+Sample output
+```
+root@2c462bd13a86:~/alx-backend-storage/0x02-redis_basic# python3 main.py
+227f1ad8-6076-408e-876d-f4b936a25c13
+06d783b8-749d-4607-b1e5-23a01b4b5615
+d731960e-d0ba-46a2-9bcc-892f1e2ac19f
+inputs: [b"('first',)", b"('secont',)", b"('third',)"]
+outputs: [b'227f1ad8-6076-408e-876d-f4b936a25c13', b'06d783b8-749d-4607-b1e5-23a01b4b5615', b'd731960e-d0ba-46a2-9bcc-892f1e2ac19f']
+root@2c462bd13a86:~/alx-backend-storage/0x02-redis_basic# 
+root@2c462bd13a86:~/alx-backend-storage/0x02-redis_basic# 
+```
+</Details>
